@@ -57,6 +57,7 @@ import torch
 if int(cv2.__version__[0]) < 3:  # pragma: no cover
     print("Warning: OpenCV 3 is not installed")
 
+
 class SuperPointNet(torch.nn.Module):
     """Pytorch definition of SuperPoint Network."""
 
@@ -203,7 +204,13 @@ class SuperPointFrontend(object):
         out_inds = inds1[inds_keep[inds2]]
         return out, out_inds
 
-    def detectAndCompute(self, img):
+    def detectAndCompute(self, img, mask):
+        """
+        Wrapper to match OpenCV Feature2D API.
+        """
+        return self.run(img)
+
+    def run(self, img):
         """Process a numpy image to extract points and descriptors.
         Input
           img - HxW numpy float32 input image in range [0,1].
