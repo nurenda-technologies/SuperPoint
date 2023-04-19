@@ -204,11 +204,11 @@ class SuperPointFrontend(object):
         out_inds = inds1[inds_keep[inds2]]
         return out, out_inds
 
-    def detectAndCompute(self, img, mask):
+    def detectAndCompute(self, img, _mask):
         """
         Wrapper to match OpenCV Feature2D API.
         """
-        return self.run(img)
+        return self.run(img.astype("float32") / 255.0)
 
     def run(self, img):
         """Process a numpy image to extract points and descriptors.
